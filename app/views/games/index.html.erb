@@ -1,0 +1,30 @@
+<% provide(:title, 'Games') %>
+<ul class="nav">
+  <li class="nav-header navbar-text mr-2">
+    <h2>Games</h2>
+  </li>
+  <li class="nav-item navbar-text">
+    <%= link_to 'New Game', new_game_path, class: "btn btn-primary" %>
+  </li>
+</ul>
+<div class="card-group">
+<% @games.each do | game | %>
+    <%= link_to game, :style => "width: 150px; text-decoration: none; margin: 10px" do %> 
+    <div class="card" style="width: inherit;">
+        <%= image_tag game.cover_url, alt: "#{game.title}: Missing Cover", class: "rounded", :style => "width: 150px; height: 200px;" %>
+        <div class="card-body bg-light" style="height: 124px">
+            <div class="card-title">
+                <% if game.title.size <= 20 %>
+                    <%= game.title %>
+                <% else %>
+                    <%= game.title[0..20] %> ...
+                <% end %>
+            </div>
+            <div class="card-text">
+                 <%= "(#{game.year})" %>
+            </div>
+        </div>
+    </div>
+    <% end %>
+<% end %>
+</div>

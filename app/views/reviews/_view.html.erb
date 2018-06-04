@@ -1,0 +1,58 @@
+
+<div class="card">
+	<div class="card-header">
+		<h3>Reviews</h3>
+	</div>
+
+		<% @edit = params[:edit].to_i %>
+
+	<div class="card-text" style="padding: 10px">
+		
+		
+	<% if @reviews.nil? %>
+		<p>No reviews yet!</p>
+	<% else %>
+		<% @reviews.each do |review| %>
+			<% if review.id != @edit %>
+				<h4><%= review.title %>
+				<% if !review.user_id.nil? && !User.where(id: review.user_id).empty? %>
+					<small>by: <%= User.find(review.user_id).name %></small>
+				<% else %>
+					<small>by: Destroyed User</small>
+				<% end %>
+				</h4>
+				<p>		<% i = 0  %>
+                        <% while i < review.rating.to_i do %>
+                        <i class="fa fa-star" style="color: gold" aria-hidden="true"></i>
+                        <% i += 1 %>
+                        <% end %>
+                        
+                        <% i = 0  %>
+                        <% while i < (10 - review.rating.to_i) do %>
+                        <i class="fa fa-star-o" style="color: gold" aria-hidden="true"></i>
+                        <% i += 1 %>
+                        <% end %>
+				
+				</p>
+				<p><%= review.body %></p>
+			
+				<% if signed_in? %>
+					<% if current_user.id == review.user_id || current_user.admin %>
+							<div class="btn-group">
+						<% @link = games_path + "/" + review.game_id.to_s + "?edit=" + review.id.to_s %>
+						<%= link_to 'Edit', @link, class: "btn btn-primary" %>
+						<%= link_to 'Destroy', [review.game, review], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+                        </div>
+					<% end %>
+			    <% end %>
+		    <% else %>
+		    	<% @review = review %>
+			    <%= render 'reviews/edit', review: @review %>
+		    <% end %>
+		    <hr/>
+		<% end %>
+	<% end %>
+
+
+	</div>
+</div>

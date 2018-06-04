@@ -1,0 +1,45 @@
+
+<%= form_with(model: [ @game, @review ], local: true) do |form| %>
+
+<% game = @game %>
+  <% if game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+      <% game.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :title, class: 'form-control' %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :rating %>
+    <%= form.select :rating, (0..10), class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body, id: :body, class: 'form-control' %>
+  </div>
+  
+   <div class="field">
+     <% if !current_user.nil? %>
+     <% if current_user.admin %>
+     <%= form.number_field :user_id, :value => "#{@review.user_id}" %>
+     <% else %>
+    <%= form.number_field :user_id, :type => "hidden", :value => "#{@review.user_id}" %>
+    <% end %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Update Review', class: "btn btn-primary"%>
+  </div>
+<% end %>

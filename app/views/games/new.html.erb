@@ -1,0 +1,11 @@
+<% provide(:title, 'New Game') %>
+<ul class="nav">
+    <li class="nav-header navbar-text mr-2">
+        <h2>New Game</h2>   
+    </li>
+    <li class="nav-item navbar-text">
+        <%= link_to 'Back', games_path, class: "btn btn-primary"  %>
+    </li>
+</ul>
+<%= render 'form', game: @game %>
+

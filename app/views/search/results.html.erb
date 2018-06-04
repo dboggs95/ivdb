@@ -1,0 +1,77 @@
+<body background="https://i.pinimg.com/originals/a5/cb/ae/a5cbaec22233c93ce11843cb599e3ee0.jpg">
+<% provide(:title, 'Results') %>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 style="color: white;">Results</h1>
+			<hr/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+<% if !@res || @res.total == 0 %>
+<span style="color: white;">No results.</span>
+<% else %>
+<span style="color: white;">Showing <%= "#{@per}" %> out of <%= "#{@res.total}" %> results.</span>
+<table>
+<thead>
+
+</thead>
+<tbody>
+	
+<div class="card-group">
+<% res = @res.results %>
+<% res.each do |game| %>
+<%= link_to game, :style => "width: 150px; text-decoration: none; margin: 10px" do %> 
+    <div class="card" style="width: inherit;">
+        <%= image_tag game.cover_url, alt: "#{game.title}: Missing Cover", class: "rounded", :style => "width: 150px; height: 200px;" %>
+        <div class="card-body bg-light" style="height: 124px">
+            <div class="card-title">
+                <% if game.title.size <= 20 %>
+                    <%= game.title %>
+                <% else %>
+                    <%= game.title[0..20] %> ...
+                <% end %>
+            </div>
+            <div class="card-text">
+                 <%= "(#{game.year})" %>
+            </div>
+        </div>
+    </div>
+    <% end %>
+<% end %>
+</div>
+<hr/>
+<div class="text-center" style="margin: 10px">
+    
+<% if !res.first_page? %>
+<%= link_to"Prev", search_index_path(:query => @q, :page => res.previous_page) %>
+<% else %>
+<span class="disabled-link" style="color:white">Prev</span>
+<% end %>
+<span style="color:white" > | </span>
+<% i = 1 %>
+<% until i > res.total_pages do %>
+	<% if @pg == i %>
+		<span style="color:white"><%= "#{i.to_s} " %></span>
+	<% else %>
+		<%= link_to "#{i.to_s} ", search_index_path(:query => @q, :page => i) %>
+	<% end %>
+	<% i += 1 %>
+<% end %>
+
+<span style="color:white"> | </span>
+
+<% if !res.last_page? %>
+<%= link_to"Next", search_index_path(:query => @q, :page => res.next_page) %>
+<% else %>
+<span class="disabled-link" style="color:white">Next</span>
+
+</div>
+<% end %>
+<% end %>
+</div>
+
+		</div>
+	</div>
+</div>

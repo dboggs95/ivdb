@@ -1,0 +1,71 @@
+<% provide(:title, @game.title) %>
+
+<div class="media">
+
+  <%= image_tag @game.cover_url, alt: "#{@game.title}: Missing Cover", class: "d-flex mr-3 game_cover_large", :style => "margin: 10px;" %>
+  <div class="media-body">
+    
+        <div class="card " style="margin: 10px">
+            <div class="card-header">
+                <ul class="nav">
+                    <li class="nav-header mr-auto">
+                    <h3>
+                    <%= @game.title %> <span style="font-weight: normal">(<%= @game.year %>)</span>
+                    <% if @game.featured %>
+                    <span class="badge badge-warning">Featured</span>
+                    <% end %>
+                    </h2>   
+                    </li>
+                    <li class="nav-item nav-text">
+                        <div class="btn-group">
+                            <% if signed_in? %>
+                            <%= link_to 'Edit', edit_game_path, class: "btn btn-primary" %>
+                            <% if current_user.admin %>
+                        <%= link_to 'Destroy', @game, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+                        <% end %>
+                        <% end %>
+                        <%= link_to 'Back', games_path, class: "btn btn-primary" %>
+                        </div>
+                        
+                    </li>
+                    </ul>
+                    <div>
+                        <% rating = get_rating(@game) %>
+                        <% if rating.nil? %>
+                        <small>This game has not been reviewed yet. Be the first to write one!</small>
+                        <% else %>
+                        <% i = 0  %>
+                        <% while i < rating do %>
+                        <i class="fa fa-star" style="color: gold" aria-hidden="true"></i>
+                        <% i += 1 %>
+                        <% end %>
+                        <% i = 0  %>
+                        <% while i < (10 - rating) do %>
+                        <i class="fa fa-star-o" style="color: gold" aria-hidden="true"></i>
+                        <% i += 1 %>
+                        <% end %>
+                        <% end %>
+
+                    </div>
+            </div>
+            <div class="card-body">
+                <p><b>Summary</b><br> <%= @game.description %></p>
+                <p><b>Publisher:</b> <%= @game.publisher %></p>
+                <p><b>Developer:</b> <%= @game.developer %></p>
+                <p><b>Platforms:</b> <%= @game.platforms %></p>
+                 <p><b>Genre:</b> <%= @game.genre %> </p>
+                 <p><b>Gameplay:</b> <%= @game.gameplay %></p>
+                 <p><b>Rated:</b> <%= @game.esrb %> </p>
+            </div>
+        </div>
+  </div>
+</div>
+
+
+<%= render 'reviews/view' %>
+<br>
+<%= render 'reviews/form' %>
+<div>&nbsp;</div>
+
+
+

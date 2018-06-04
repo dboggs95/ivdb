@@ -1,0 +1,81 @@
+<% provide(:title, 'Home') %>
+<body background="https://i.pinimg.com/originals/a5/cb/ae/a5cbaec22233c93ce11843cb599e3ee0.jpg">
+    
+<nav data-toggle="collapse" data-target="#featured" class="navbar bg-primary rounded pointer">
+    <i class="fa fa-chevron-down mr-auto" style="color: white" aria-hidden="true"></i>
+
+  <h2 class="center-text mr-auto">What's Featured?</h2>
+    <i class="fa fa-chevron-down" style="color: white" aria-hidden="true"></i>
+
+</nav>
+<div id="featured">
+    
+            <% if @games_featured.nil? %>
+
+            <div class="jumbotron">No featured games.</div>
+            <% else %>
+
+
+<div class="card-group">
+<% @games_featured.each do | game | %>
+    <%= link_to game, :style => "width: 150px; text-decoration: none; margin: 10px" do %> 
+    <div class="card" style="width: inherit;">
+        <%= image_tag game.cover_url, alt: "#{game.title}: Missing Cover", class: "rounded", :style => "width: 150px; height: 200px;" %>
+        <div class="card-body bg-light" style="height: 124px">
+            <div class="card-title">
+                <% if game.title.size <= 20 %>
+                    <%= game.title %>
+                <% else %>
+                    <%= game.title[0..20] %> ...
+                <% end %>
+            </div>
+            <div class="card-text">
+                 <%= "(#{game.year})" %>
+            </div>
+        </div>
+    </div>
+    <% end %>
+<% end %>
+</div>
+            <% end %>
+</div>
+<div>&nbsp;</div>
+<nav data-toggle="collapse" data-target="#user_picks" class="navbar bg-primary rounded pointer">
+    <i class="fa fa-chevron-down mr-auto" style="color: white" aria-hidden="true"></i>
+
+  <h2 class="center-text mr-auto">User Picks!</h2>
+    <i class="fa fa-chevron-down" style="color: white" aria-hidden="true"></i>
+
+</nav>
+    <div id="user_picks">
+            <% if @games_user_pick.nil? %>
+
+            <div class="jumbotron">Not enough ratings to determined. Go review some games!</div>
+            <% else %>
+
+
+<div class="card-group">
+<% @games_user_pick.each do | game | %>
+    <%= link_to game, :style => "width: 150px; text-decoration: none; margin: 10px" do %> 
+    <div class="card" style="width: inherit;">
+        <%= image_tag game.cover_url, alt: "#{game.title}: Missing Cover", class: "rounded", :style => "width: 150px; height: 200px;" %>
+        <div class="card-body bg-light" style="height: 124px">
+            <div class="card-title">
+                <% if game.title.size <= 20 %>
+                    <%= game.title %>
+                <% else %>
+                    <%= game.title[0..20] %> ...
+                <% end %>
+            </div>
+            <div class="card-text">
+                 <%= "(#{game.year})" %>
+            </div>
+        </div>
+    </div>
+    <% end %>
+<% end %>
+</div>
+            <% end %>    
+    
+</div>
+

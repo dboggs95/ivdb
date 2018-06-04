@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  cover_url: MyString
+  year: 1
+  description: MyText
+  featured: false
+  developer: MyString
+  publisher: MyString
+  platforms: MyString
+  gameplay: MyString
+  genre: MyString
+  esrb: MyString
+
+two:
+  title: MyString
+  cover_url: MyString
+  year: 1
+  description: MyText
+  featured: false
+  developer: MyString
+  publisher: MyString
+  platforms: MyString
+  gameplay: MyString
+  genre: MyString
+  esrb: MyString
